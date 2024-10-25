@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import Image from 'next/image';// Import Image from Next.js
+import Image from 'next/image';
 import XCustomTextField from "../components/textinput/index";
 import XButton from "../components/XButton/index";
 
@@ -26,7 +26,7 @@ const validationSchema = Yup.object({
 export default function LoginForm() {
   const router = useRouter();
 
-  // Modify handleSubmit to receive form values from Formik.
+ 
   const handleSubmit = async (values) => {
     const { email, password } = values;
     try {
@@ -40,7 +40,7 @@ export default function LoginForm() {
   
       if (result.success) {
         console.log(result.message);
-        router.push('/movies');  // Redirect on successful login or account creation
+        router.push('/movies');  
       } else {
         console.log('Login failed:', result.message);
         alert(result.message);
@@ -61,7 +61,7 @@ export default function LoginForm() {
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      height: "calc(100vh - 100px)", // Adjust height to leave space for the image
+      height: "calc(100vh - 100px)", 
     }}
   >
     <Box
@@ -81,7 +81,7 @@ export default function LoginForm() {
           <Formik
             initialValues={{ email: "", password: "" }}
             validationSchema={validationSchema}
-            onSubmit={(values) => handleSubmit(values)} // Pass the form values directly
+            onSubmit={(values) => handleSubmit(values)}
           >
             {({ values, handleChange, errors, touched }) => (
               <Form>
@@ -159,10 +159,9 @@ export default function LoginForm() {
             )}
           </Formik>
         </Box>
-    {/* Your form elements */}
   </Container>
 
-  {/* Add the image at the bottom */}
+
   <Box
     sx={{
       position: "absolute",
@@ -172,11 +171,11 @@ export default function LoginForm() {
     }}
   >
     <Image
-      src="/Vector.png" // Ensure this is the correct path in your public folder
+      src="/Vector.png" 
       alt="Wave"
-      width={1440} // Set the desired width (adjust based on the image)
-      height={150} // Set the desired height (adjust based on the image)
-      objectFit="cover" // Ensure it covers the bottom well
+      width={1440} 
+      height={150} 
+      objectFit="cover" 
     />
   </Box>
 </Box>

@@ -9,9 +9,9 @@ import XCustomTextField from '../components/textinput';
 import XButton from '../components/XButton';
 import axios from 'axios';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
-import Image from 'next/image';// Import Image from Next.js
+import Image from 'next/image';
 
-// Styled component for DropZone
+
 const DropZone = {
     border: "2px dashed #ccc",
     borderRadius: "8px",
@@ -26,7 +26,7 @@ const DropZone = {
     justifyContent: "center",
 };
 
-// Validation schema
+
 const validationSchema = Yup.object({
     title: Yup.string().required("Title is required"),
     year: Yup.number()
@@ -36,12 +36,12 @@ const validationSchema = Yup.object({
 });
 
 export default function MovieForm({ onSave, movieID }) {
-    const [imageFile, setImageFile] = useState(null); // Store the selected file
-    const [imagePreview, setImagePreview] = useState(''); // Store the preview URL for the selected file
-    const [serverImageURL, setServerImageURL] = useState(''); // Store the URL of the image after upload
+    const [imageFile, setImageFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState(''); 
+    const [serverImageURL, setServerImageURL] = useState(''); 
     const router = useRouter();
 
-    // Dropzone setup
+
     const { getRootProps, getInputProps } = useDropzone({
         accept: "image/*",
         multiple: false,
@@ -49,9 +49,9 @@ export default function MovieForm({ onSave, movieID }) {
             if (files.length > 0) {
                 const file = files[0];
                 setImageFile(file);
-                setImagePreview(URL.createObjectURL(file)); // Create a URL for the preview
-                setServerImageURL(''); // Clear the server URL if a new file is selected
-                console.log("Image File Selected:", file); // Debugging log
+                setImagePreview(URL.createObjectURL(file));
+                setServerImageURL(''); 
+                console.log("Image File Selected:", file); 
             }
         },
     });
@@ -61,16 +61,16 @@ export default function MovieForm({ onSave, movieID }) {
         
         const movieData = {
             ...values,
-            poster: imageFile ? imageFile : imagePreview, // Attach the image file to the data
+            poster: imageFile ? imageFile : imagePreview, 
         };
 
         const formData = new FormData();
         for (const key in movieData) {
-            formData.append(key, movieData[key]); // Append each value to FormData
+            formData.append(key, movieData[key]); 
         }
         console.log("formData", formData, "movieData", movieData)
         try {
-            // Determine the endpoint and method based on movieID
+
             const endpoint = movieID ? `/api/movies/${movieID}` : '/api/movies';
             const method = movieID ? 'put' : 'post';
 
@@ -80,29 +80,29 @@ export default function MovieForm({ onSave, movieID }) {
                 },
             });
 
-            console.log('Response Data:', response.data); // Inspect the returned data
+            console.log('Response Data:', response.data); 
             if (movieID) {
-                // If editing, you might want to update your local state or image URL
-                setServerImageURL(response.data.poster); // Assuming the response contains the poster URL
+               
+                setServerImageURL(response.data.poster); 
             } else {
-                setImagePreview(''); // Clear the image preview after adding a new movie
+                setImagePreview(''); 
             }
 
-            onSave(); // Trigger refresh on save
-            // router.push('/movies'); // Navigate back to movie list
+            onSave();
+           
         } catch (error) {
             console.error('Failed to save movie:', error);
-            alert('Failed to save movie. Please try again.'); // Notify the user of the failure
+            alert('Failed to save movie. Please try again.'); 
         }
     };
 
-    // Function to fetch movie details
+
     const fetchMovieDetails = async (setFieldValue) => {
         try {
             const response = await axios.get(`/api/movies/${movieID}`);
             setFieldValue('title', response.data.data.title);
             setFieldValue('year', response.data.data.year);
-            setImagePreview(response.data.data.poster); // Assuming the API returns poster URL
+            setImagePreview(response.data.data.poster); 
         } catch (error) {
             console.error('Failed to fetch movie details:', error);
         }
@@ -117,7 +117,7 @@ export default function MovieForm({ onSave, movieID }) {
           backgroundColor: "#093545",
           padding: "70px",
           boxSizing: "border-box",
-          position: "relative", // This ensures the absolute-positioned image is relative to this container
+          position: "relative", 
         }}
       >
         <IconButton
@@ -146,13 +146,13 @@ export default function MovieForm({ onSave, movieID }) {
               </Typography>
             </Box>
       
-            {/* Show Image Preview Before Upload or Server Image URL After Upload */}
+
             {(imagePreview || serverImageURL) && (
               <Card sx={{ marginTop: 2 }}>
                 <CardMedia
                   component="img"
                   height="200"
-                  image={serverImageURL || imagePreview} // Show server URL after upload, else show preview
+                  image={serverImageURL || imagePreview}
                   alt="Selected"
                 />
                 <CardContent>
@@ -172,14 +172,14 @@ export default function MovieForm({ onSave, movieID }) {
               }}
               validationSchema={validationSchema}
               onSubmit={(values) => {
-                console.log("Form Values:", values); // Verify form values are populated
-                handleSubmit(values); // Pass form values to handleSubmit
+                console.log("Form Values:", values); 
+                handleSubmit(values); 
               }}
             >
               {({ errors, touched, setFieldValue }) => {
                 useEffect(() => {
                   if (movieID) {
-                    fetchMovieDetails(setFieldValue); // Fetch the details with setFieldValue
+                    fetchMovieDetails(setFieldValue); 
                   }
                 }, [movieID]);
       
@@ -243,15 +243,15 @@ export default function MovieForm({ onSave, movieID }) {
             width: "100%",
             right:"0%",
             display: "flex",
-            justifyContent: "center", // This will horizontally center the image
-            alignItems: "center", // Vertically center the image if needed
+            justifyContent: "center", 
+            alignItems: "center", 
           }}
         >
           <Image
-            src="/Vector.png" // Make sure the path is correct
+            src="/Vector.png" 
             alt="Wave Icon"
-            width={1440} // Adjust width based on design
-            height={100} // Adjust height based on design
+            width={1440} 
+            height={100} 
           />
         </Box>
       </Box>

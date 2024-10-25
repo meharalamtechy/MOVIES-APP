@@ -53,14 +53,14 @@ export default async function handler(req, res) {
           const newFileName = `${uuidv4()}_${file.originalFilename}`;
           const uploadPath = path.join(uploadDir, newFileName);
 
-          // Move the uploaded file to the uploads directory
+       
           fs.rename(file.filepath, uploadPath, async (fileError) => {
             if (fileError) {
               console.error('Error saving file:', fileError);
               return res.status(500).json({ success: false, message: 'File processing error' });
             }
 
-            // Update the poster field to store the file path
+
             updateData.poster = `/uploads/${newFileName}`;
 
             try {

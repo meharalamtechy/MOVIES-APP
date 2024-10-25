@@ -16,7 +16,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
 import axios from "axios";
-import XButton from "./XButton"; // Assuming XButton is a custom button component
+import XButton from "./XButton"; 
 import Image from 'next/image';
 
 const MovieList = ({ onAddNewMovie, onUpdateCurrentMovie }) => {
@@ -78,8 +78,8 @@ const MovieList = ({ onAddNewMovie, onUpdateCurrentMovie }) => {
                 display: "flex",
                 flexDirection: "column",
                 backgroundColor: "#093545",
-                minHeight: "100vh", // To make sure the background covers the entire height
-                position: "relative", // To enable absolute positioning for the bottom image
+                minHeight: "100vh",
+                position: "relative", 
             }}
         >
             <IconButton
@@ -211,14 +211,14 @@ const MovieList = ({ onAddNewMovie, onUpdateCurrentMovie }) => {
                 </Stack>
             </Box>
 
-            {/* Add the Vector.png image at the bottom */}
+           
             <Box
                 sx={{
                     position: "absolute",
                     bottom: 0,
                     width: "100%",
                     display: "flex",
-                    justifyContent: "center", // Horizontally center the image
+                    justifyContent: "center", 
                 }}
             >
                 <Image
@@ -233,8 +233,8 @@ const MovieList = ({ onAddNewMovie, onUpdateCurrentMovie }) => {
         <Box
             sx={{
                 backgroundColor: "#093545",
-                minHeight: "100vh", // Ensure full page height
-                position: "relative", // Allow absolute positioning of the image
+                minHeight: "100vh",
+                position: "relative", 
             }}
         >
             <IconButton
@@ -281,7 +281,7 @@ const MovieList = ({ onAddNewMovie, onUpdateCurrentMovie }) => {
                 </XButton>
             </Container>
 
-            {/* Add the Vector.png image at the bottom */}
+
             <Box
                 sx={{
                     position: "absolute",
